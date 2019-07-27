@@ -1,12 +1,9 @@
 <resources>
     <string name="app_name">WikiSearch</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="search">Search</string>
-
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="title_activity_main">WikiSearch</string>
 	<string name="search_wikipedia">Search Wikipedia</string>
+	<string name="history">History</string>
+	<string name="favourites">Favourites</string>
+	<string name="explore">Explore</string>
+	<string name="search">Search</string>
 </resources>

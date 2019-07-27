@@ -1,30 +1,41 @@
 package com.olabode.wilson.wikisearch
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.olabode.wilson.wikisearch.fragments.ExploreFragment
+import com.olabode.wilson.wikisearch.fragments.FavouriteFragment
+import com.olabode.wilson.wikisearch.fragments.HistoryFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textMessage: TextView
+    private val exploreFragment: ExploreFragment
+    private val favouriteFragment: FavouriteFragment
+    private val historyFragment: HistoryFragment
+
+
+    init {
+        exploreFragment = ExploreFragment()
+        favouriteFragment = FavouriteFragment()
+        historyFragment = HistoryFragment()
+    }
+
+
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        val transaction = supportFragmentManager.beginTransaction()
+
+        // TODO add fade in and out animations
+        //transaction.setCustomAnimations(, )
+
         when (item.itemId) {
-            R.id.navigation_home -> {
-                textMessage.setText(R.string.title_home)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_dashboard -> {
-                textMessage.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                textMessage.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
-            }
+            R.id.navigation_explore -> transaction.replace(R.id.fragment_container, exploreFragment)
+            R.id.navigation_favourites -> transaction.replace(R.id.fragment_container, favouriteFragment)
+            R.id.navigation_history -> transaction.replace(R.id.fragment_container, historyFragment)
         }
-        false
+        transaction.commit()
+
+        true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +43,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        textMessage = findViewById(R.id.message)
+        setSupportActionBar(toolbar)
 
 
-        textMessage.setOnClickListener { view ->
-
-            startActivity(Intent(this, ArticleDetailActivity::class.java))
-        }
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_container, exploreFragment)
+        transaction.commit()
+
     }
 }
